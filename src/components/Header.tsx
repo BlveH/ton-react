@@ -1,5 +1,5 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
-import {Wallet} from "./Wallet.tsx"
+import SendTransaction from "./sendTransaction.tsx"
 const Header = () => {
   return (
     <header>
@@ -7,7 +7,7 @@ const Header = () => {
         className="my-button-class"
         style={{ marginLeft: 900 }}
       />
-        <Wallet/>
+        <SendTransaction/>
     </header>
   );
 };
