@@ -1,60 +1,67 @@
-import { useTonConnectUI } from '@tonconnect/ui-react';
-import { useState } from 'react';
+import { useTonConnectUI } from "@tonconnect/ui-react";
+import { useState } from "react";
+import Row from "./Row";
 
 const SendTransaction = () => {
-    const [tonConnectUI] = useTonConnectUI();
-    const [address, setAddress] = useState(""); // State cho địa chỉ
-    const [amount, setAmount] = useState("");   // State cho số lượng
+  const [tonConnectUI] = useTonConnectUI();
+  const [address, setAddress] = useState(""); // State cho địa chỉ
+  const [amount, setAmount] = useState(""); // State cho số lượng
 
-    const transaction = {
-        messages: [
-            {
-                address: address, // Sử dụng giá trị từ state cho địa chỉ
-                amount: amount    // Sử dụng giá trị từ state cho số lượng
-            }
-        ],
-        validUntil: new Date().getTime() + 1000 * 60 * 10 // 10 minutes
-    };
+  const transaction = {
+    messages: [
+      {
+        address: address, // Sử dụng giá trị từ state cho địa chỉ
+        amount: amount, // Sử dụng giá trị từ state cho số lượng
+      },
+    ],
+    validUntil: new Date().getTime() + 1000 * 60 * 10, // 10 minutes
+  };
 
-    const handleSendTransaction = async () => {
-        try {
-            await tonConnectUI.sendTransaction(transaction);
-            // Giao dịch đã được gửi thành công, có thể thêm xử lý bổ sung ở đây nếu cần
-            console.log("Giao dịch đã được gửi thành công");
-        } catch (error) {
-            // Xử lý lỗi nếu giao dịch không thành công
-            console.error("Lỗi khi gửi giao dịch:", error);
-        }
-    };
+  const handleSendTransaction = async () => {
+    try {
+      await tonConnectUI.sendTransaction(transaction);
+      // Giao dịch đã được gửi thành công, có thể thêm xử lý bổ sung ở đây nếu cần
+      console.log("Giao dịch đã được gửi thành công");
+    } catch (error) {
+      // Xử lý lỗi nếu giao dịch không thành công
+      console.error("Lỗi khi gửi giao dịch:", error);
+    }
+  };
 
-
-    return (
-        <div>
-            <div>
-                <label htmlFor="address">Address:</label>
-                <input
-                    type="text"
-                    id="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="amount">Amount (Toncoin in nanotons):</label>
-                <input
-                    type="text"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                />
-            </div>
-            <div>
-                <button onClick={handleSendTransaction} style={{ marginLeft: 900 }}>
-                    Send transaction
-                </button>
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex flex-col gap-y-5 w-full justify-center-center mt-10 bg-gray-200 p-5 rounded-md shadow-lg">
+      <Row>
+        <label htmlFor="address">Address</label>
+        <input
+          type="text"
+          id="address"
+          value={address}
+          placeholder="Enter your address"
+          onChange={(e) => setAddress(e.target.value)}
+          className="px-3 py-2 rounded-md text-gray-500"
+        />
+      </Row>
+      <Row>
+        <label htmlFor="amount">Amount (Toncoin in nanotons)</label>
+        <input
+          type="text"
+          id="amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Enter your amount"
+          className="px-3 py-2 rounded-md text-gray-500"
+        />
+      </Row>
+      <div className="flex items-center justify-center">
+        <button
+          onClick={handleSendTransaction}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md text-center"
+        >
+          Send transaction
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default SendTransaction;

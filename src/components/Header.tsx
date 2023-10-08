@@ -1,13 +1,12 @@
-import { TonConnectButton } from "@tonconnect/ui-react";
-import SendTransaction from "./sendTransaction.tsx"
+import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import SendTransaction from "./sendTransaction";
 const Header = () => {
+  const userFriendlyAddress = useTonAddress();
+  // const rawAddress = useTonAddress(false);
   return (
-    <header>
-      <TonConnectButton
-        className="my-button-class"
-        style={{ marginLeft: 900 }}
-      />
-        <SendTransaction/>
+    <header className="max-w-[500px] mx-auto w-full mt-10 flex items-center justify-center flex-col">
+      <TonConnectButton />
+      {userFriendlyAddress && <SendTransaction></SendTransaction>}
     </header>
   );
 };
