@@ -4,14 +4,14 @@ import Row from "./Row";
 
 const SendTransaction = () => {
   const [tonConnectUI] = useTonConnectUI();
-  const [address, setAddress] = useState(""); // State cho địa chỉ
-  const [amount, setAmount] = useState(""); // State cho số lượng
+  const [address, setAddress] = useState("");
+  const [amount, setAmount] = useState("");
 
   const transaction = {
     messages: [
       {
-        address: address, // Sử dụng giá trị từ state cho địa chỉ
-        amount: amount, // Sử dụng giá trị từ state cho số lượng
+        address: address,
+        amount: amount,
       },
     ],
     validUntil: new Date().getTime() + 1000 * 60 * 10, // 10 minutes
@@ -20,10 +20,10 @@ const SendTransaction = () => {
   const handleSendTransaction = async () => {
     try {
       await tonConnectUI.sendTransaction(transaction);
-      // Giao dịch đã được gửi thành công, có thể thêm xử lý bổ sung ở đây nếu cần
       console.log("Giao dịch đã được gửi thành công");
+      setAddress('')
+      setAmount('')
     } catch (error) {
-      // Xử lý lỗi nếu giao dịch không thành công
       console.error("Lỗi khi gửi giao dịch:", error);
     }
   };
